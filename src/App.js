@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import React from 'react';
 import axios from 'axios';
 import Card  from 'react-bootstrap/Card';
+import Weather from './Weather';
 
 class App extends React.Component {
   constructor(props) {
@@ -12,7 +13,9 @@ class App extends React.Component {
       cityName: '',
       lat: 0,
       lon: 0,
-      error: false
+      error: false,
+      forecast: [],
+      
     }
   }
 
@@ -75,6 +78,10 @@ class App extends React.Component {
     <Card>
       <Card.Img src={mapUrl} />
     </Card>
+
+    <Weather>
+
+    </Weather>
       </>
       );
     

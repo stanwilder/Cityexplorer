@@ -31,3 +31,5 @@ Start time: 2:30 pm
 Finish time: 7:12
 
 Actual time needed to complete: 5 hours and 12 minutes
+![Lab 6 WRRC](WRRC.jpg)
+![Lab 7 WRRC](Lab07.jpg)
