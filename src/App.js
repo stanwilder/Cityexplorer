@@ -11,10 +11,12 @@ class App extends React.Component {
     super(props);
     this.state = {
       cityName: '',
-      lat: 0,
-      lon: 0,
+      lat: '',
+      lon: '',
       error: false,
       forecast: [],
+      showForecast: false,
+      
       
     }
   }
@@ -28,15 +30,19 @@ class App extends React.Component {
     e.preventDefault();
     try {
 
-      let apiUrl = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.cityName}&format=json`
+      let locationUrl = `https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATION_API_KEY}&q=${this.state.cityName}&format=json`
+      let city = await axios.get(locationUrl);
       
+      let weatherUrl = (`${process.env.REACT_APP_SERVER}/weather?city=${this.state.cityName}&lat=${locationUrl.data[0].lat}&lon=${locationUrl.data[0].lon}&format=json`);
+      let weather = await axios.get(weatherUrl);
+      console.log(weather);
       
-      console.log(apiUrl)
-      let city = await axios.get(apiUrl);
       this.setState({
         lon: city.data[0].lon,
         lat: city.data[0].lat,
-        displayName: city.data[0].display_name
+        displayName: city.data[0].display_name,
+        forecast: weather.data,
+        showForecast: true,
         
       })
     } catch (error) {
@@ -49,8 +55,8 @@ class App extends React.Component {
   
   
   render() {
+    let mapUrl = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.lat},${this.state.lon}&zoom=13`
     
-    let mapUrl =  `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.lat},${this.state.lon}&zoom=13`
     return (
       <>
       <Form onSubmit={this.citySubmit}>
@@ -79,9 +85,10 @@ class App extends React.Component {
       <Card.Img src={mapUrl} />
     </Card>
 
-    <Weather>
-
-    </Weather>
+    <Weather
+      weatherData={this.state.forecast}
+      showForecast={this.state.showForecast}
+      />
       </>
       );
     

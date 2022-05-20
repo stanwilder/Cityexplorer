@@ -6,7 +6,10 @@ render () {
   return(
     <>
     <Card>
-      
+      <Card.Body>
+        <Card.Text>Latitude: {this.props.lon}</Card.Text>
+        <Card.Text>Longitude: {this.props.lat}</Card.Text>
+      </Card.Body>
     </Card>
     </>
   )
