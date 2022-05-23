@@ -5,6 +5,7 @@ import React from 'react';
 import axios from 'axios';
 import Card from 'react-bootstrap/Card';
 import Weather from './Weather';
+import Movie from './Movie';
 
 class App extends React.Component {
   constructor(props) {
@@ -17,8 +18,8 @@ class App extends React.Component {
       forecast: [],
       showForecast: false,
       showMap: true,
-
-
+      movies: [],
+      showMovies: false,
     }
   }
 
@@ -39,6 +40,9 @@ class App extends React.Component {
       console.log(weatherUrl);
       let weather = await axios.get(weatherUrl);
 
+      let movieUrl = (`${process.env.REACT_APP_SERVER}/Movie?cityName=${this.state.cityName}`);
+      let movies = await axios.get(movieUrl);
+
       this.setState({
         lon: city.data[0].lon,
         lat: city.data[0].lat,
@@ -46,6 +50,8 @@ class App extends React.Component {
         forecast: weather.data,
         showForecast: true,
         showMap: true,
+        movies: movies.data,
+        showMovies: true,
       })
     } catch (error) {
       this.setState({
@@ -94,6 +100,14 @@ class App extends React.Component {
           />
 
         }
+        { this.state.showMovies &&
+          <Movie
+          movieData={this.state.movies}
+          />
+        }
+
+
+
       </>
     )
   }
