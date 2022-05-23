@@ -6,9 +6,9 @@ render() {
   return (
     <Card>
           <Card.Body>
-            <Card.Text>High: {this.props.day.high}</Card.Text>
-            <Card.Text>Low: {this.props.day.low}</Card.Text>
-            <Card.Text>Forecast: {this.props.day.description}</Card.Text>
+            <Card.Text>{this.props.movie.title}</Card.Text>
+            <Card.Text>{}</Card.Text>
+            <Card.Text>{}</Card.Text>
           </Card.Body>
         </Card>
 

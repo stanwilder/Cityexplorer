@@ -40,7 +40,8 @@ class App extends React.Component {
       console.log(weatherUrl);
       let weather = await axios.get(weatherUrl);
 
-      let movieUrl = (`${process.env.REACT_APP_SERVER}/Movie?cityName=${this.state.cityName}`);
+      let movieUrl = (`${process.env.REACT_APP_SERVER}/movie?city=${this.state.cityName}&format=json`);
+      console.log(movieUrl);
       let movies = await axios.get(movieUrl);
 
       this.setState({
